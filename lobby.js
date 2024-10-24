@@ -13,7 +13,7 @@ const maxQuestions = 25;
 
 function createWebSocket() {
     if (!socket) {
-        // Uppdaterad WebSocket-länk med wss-protokollet
+        // Använd rätt wss-länk
         socket = new WebSocket('wss://quiz-app-e608.onrender.com');
 
         socket.onopen = () => {
@@ -251,11 +251,7 @@ function showCorrectAnswer() {
 
     setTimeout(() => {
         currentQuestionIndex++;
-        if (currentQuestionIndex < selectedQuestions.length) {
-            loadNextQuestion();  // Ladda nästa fråga direkt efter att visa det rätta svaret
-        } else {
-            showFinalLeaderboard();
-        }
+        showLeaderboard();
     }, 2000);
 }
 
@@ -275,7 +271,7 @@ function showLeaderboard() {
 
     setTimeout(() => {
         document.getElementById('leaderboard-screen').style.display = 'none';
-        loadNextQuestion(); // Här laddas nästa fråga när leaderboarden visas klart
+        loadNextQuestion();
     }, 4000);
 }
 
@@ -286,6 +282,7 @@ function showFinalLeaderboard() {
 function generateLobbyCode() {
     return Math.random().toString(36).substr(2, 6).toUpperCase();
 }
+
 
 
 function showFinalLeaderboard() {

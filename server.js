@@ -1,36 +1,15 @@
 const WebSocket = require('ws');
 const fs = require('fs');
 const server = new WebSocket.Server({ port: 8080 });
-
 let lobbies = {}; // Lagrar lobbys och spelare
-
-// Helper function to load questions from a JSON file
-function loadQuestions() {
-    return new Promise((resolve, reject) => {
-        fs.readFile('./questions.json', 'utf8', (err, data) => {
-            if (err) {
-                console.error('Error reading questions file:', err);
-                reject(err);
-            } else {
-                try {
-                    const questions = JSON.parse(data);
-                    resolve(questions);
-                } catch (parseErr) {
-                    console.error('Error parsing questions JSON:', parseErr);
-                    reject(parseErr);
-                }
-            }
-        });
-    });
-}
 
 server.on('connection', (ws) => {
     ws.on('message', (message) => {
         const data = JSON.parse(message);
 
         if (data.type === 'create') {
-            lobbies[data.code] = { 
-                players: [{ username: data.username, isCreator: true, answered: false, score: 0 }], 
+            lobbies[data.code] = {
+                players: [{ username: data.username, isCreator: true, answered: false, score: 0 }],
                 sockets: [ws],
                 questions: [],
                 currentQuestionIndex: 0,
@@ -53,19 +32,24 @@ server.on('connection', (ws) => {
         }
 
         if (data.type === 'start-game') {
-            loadQuestions()
-                .then((questions) => {
+            if (lobbies[data.code]) {
+                // Läser frågorna från questions.json
+                fs.readFile('questions.json', 'utf8', (err, questionsData) => {
+                    if (err) {
+                        console.error('Error reading questions file:', err);
+                        ws.send(JSON.stringify({ type: 'error', message: 'Could not load questions' }));
+                        return;
+                    }
+                    const questions = JSON.parse(questionsData);
                     lobbies[data.code].questions = questions;
                     sendGameStart(data.code);
                     startTimer(data.code);
-                })
-                .catch((error) => {
-                    console.error('Failed to load questions', error);
                 });
+            }
         }
 
         if (data.type === 'player-answered') {
-            handlePlayerAnswer(data.code, data.username, data.selectedAnswer, data.timeLeft);
+            handlePlayerAnswer(data.code, data.username, data.timeLeft, data.selectedAnswer);
         }
     });
 });
@@ -78,35 +62,29 @@ function sendLobbyUpdate(lobbyCode) {
 }
 
 function sendGameStart(lobbyCode) {
-    const lobby = lobbies[lobbyCode];
-    if (lobby && lobby.questions.length > 0) {
-        const currentQuestion = lobby.questions[lobby.currentQuestionIndex];
-        lobby.sockets.forEach(socket => {
-            socket.send(JSON.stringify({
-                type: 'start-game',
-                question: currentQuestion
-            }));
-        });
-    } else {
-        console.error("No questions available for lobby", lobbyCode);
-    }
+    const sockets = lobbies[lobbyCode].sockets;
+    const currentQuestion = lobbies[lobbyCode].questions[lobbies[lobbyCode].currentQuestionIndex];
+    sockets.forEach(socket => {
+        socket.send(JSON.stringify({ type: 'start-game', question: currentQuestion }));
+    });
 }
 
-function handlePlayerAnswer(lobbyCode, username, selectedAnswer, timeLeft) {
-    const player = lobbies[lobbyCode].players.find(p => p.username === username);
+function handlePlayerAnswer(lobbyCode, username, timeLeft, selectedAnswer) {
+    const players = lobbies[lobbyCode].players;
     const currentQuestion = lobbies[lobbyCode].questions[lobbies[lobbyCode].currentQuestionIndex];
 
-    if (selectedAnswer === currentQuestion.correct) {
-        // Poäng baserat på tid kvar om svaret är korrekt
-        const points = timeLeft * 10;  // Du kan justera poängberäkningen
-        player.score += points;
-    }
+    players.forEach(player => {
+        if (player.username === username) {
+            player.answered = true;
+            if (selectedAnswer === currentQuestion.correct) {
+                player.score += timeLeft * 10; // Poäng om svaret är korrekt
+            }
+        }
+    });
 
-    player.answered = true;
+    const allAnswered = players.every(player => player.answered);
 
-    // Kolla om alla spelare har svarat
-    const allAnswered = lobbies[lobbyCode].players.every(p => p.answered);
-    if (allAnswered || lobbies[lobbyCode].timeLeft === 0) {
+    if (allAnswered) {
         clearInterval(lobbies[lobbyCode].timer);
         showCorrectAnswer(lobbyCode);
     }
@@ -158,11 +136,11 @@ function loadNextQuestion(lobbyCode) {
         endGame(lobbyCode);
     } else {
         lobbies[lobbyCode].players.forEach(player => player.answered = false);
+        startTimer(lobbyCode);
         const currentQuestion = lobbies[lobbyCode].questions[lobbies[lobbyCode].currentQuestionIndex];
         lobbies[lobbyCode].sockets.forEach(socket => {
             socket.send(JSON.stringify({ type: 'next-question', question: currentQuestion }));
         });
-        startTimer(lobbyCode);
     }
 }
 
@@ -171,6 +149,7 @@ function endGame(lobbyCode) {
         socket.send(JSON.stringify({ type: 'game-over' }));
     });
 }
+
 
 
 
