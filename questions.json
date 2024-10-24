@@ -1,0 +1,243 @@
+[
+    {
+        "question": "Vad är Frankrikes huvudstad?",
+        "answers": ["Berlin", "Madrid", "Paris", "Lissabon"],
+        "correct": 2
+    },
+    {
+        "question": "Vilken planet är närmast solen?",
+        "answers": ["Jorden", "Venus", "Mars", "Merkurius"],
+        "correct": 3
+    },
+    {
+        "question": "Vilket är världens största hav?",
+        "answers": ["Atlanten", "Indiska oceanen", "Arktiska oceanen", "Stilla havet"],
+        "correct": 3
+    },
+    {
+        "question": "Hur många kontinenter finns det?",
+        "answers": ["5", "6", "7", "8"],
+        "correct": 2
+    },
+    {
+        "question": "Vem skrev 'To Kill a Mockingbird'?",
+        "answers": ["Harper Lee", "George Orwell", "Mark Twain", "J.K. Rowling"],
+        "correct": 0
+    },
+    {
+        "question": "Vad är den kemiska symbolen för guld?",
+        "answers": ["Au", "Ag", "Pb", "Fe"],
+        "correct": 0
+    },
+    {
+        "question": "Vilket land är känt för den kinesiska muren?",
+        "answers": ["Indien", "Kina", "Japan", "Ryssland"],
+        "correct": 1
+    },
+    {
+        "question": "Vilket språk talas mest i världen?",
+        "answers": ["Spanska", "Engelska", "Kinesiska", "Hindi"],
+        "correct": 2
+    },
+    {
+        "question": "Vad är världens högsta berg?",
+        "answers": ["K2", "Mount Everest", "Kangchenjunga", "Lhotse"],
+        "correct": 1
+    },
+    {
+        "question": "Vilket grundämne har den kemiska symbolen O?",
+        "answers": ["Syre", "Osmium", "Oxid", "Oktan"],
+        "correct": 0
+    },
+    {
+        "question": "Vem utvecklade relativitetsteorin?",
+        "answers": ["Isaac Newton", "Albert Einstein", "Galileo Galilei", "Nikola Tesla"],
+        "correct": 1
+    },
+    {
+        "question": "Hur många färger finns det i en regnbåge?",
+        "answers": ["5", "6", "7", "8"],
+        "correct": 2
+    },
+    {
+        "question": "I vilken stad står Frihetsgudinnan?",
+        "answers": ["Los Angeles", "New York", "Boston", "Chicago"],
+        "correct": 1
+    },
+    {
+        "question": "Vad är det hårdaste naturliga ämnet på jorden?",
+        "answers": ["Guld", "Järn", "Diamant", "Platina"],
+        "correct": 2
+    },
+    {
+        "question": "Vad är huvudingredienserna i guacamole?",
+        "answers": ["Tomat", "Avokado", "Gurka", "Sallad"],
+        "correct": 1
+    },
+    {
+        "question": "Vilket land uppfann pizza?",
+        "answers": ["Spanien", "Grekland", "Italien", "Frankrike"],
+        "correct": 2
+    },
+    {
+        "question": "Vem målade Mona Lisa?",
+        "answers": ["Vincent van Gogh", "Leonardo da Vinci", "Michelangelo", "Pablo Picasso"],
+        "correct": 1
+    },
+    {
+        "question": "Vilket land är hem för kängurun?",
+        "answers": ["Sydafrika", "Australien", "Nya Zeeland", "Indien"],
+        "correct": 1
+    },
+    {
+        "question": "Vad står DNA för?",
+        "answers": ["Deoxiribonukleinsyra", "Dinukleotidsyra", "Dioxygensyra", "Dinukleärsyra"],
+        "correct": 0
+    },
+    {
+        "question": "Vilken planet kallas den röda planeten?",
+        "answers": ["Venus", "Mars", "Jupiter", "Saturnus"],
+        "correct": 1
+    },
+    {
+        "question": "Vad är den minsta enheten av materia?",
+        "answers": ["Atom", "Molekyl", "Cell", "Elektron"],
+        "correct": 0
+    },
+    {
+        "question": "Vem upptäckte penicillin?",
+        "answers": ["Marie Curie", "Alexander Fleming", "Louis Pasteur", "Isaac Newton"],
+        "correct": 1
+    },
+    {
+        "question": "Vilket land var värd för OS 2016?",
+        "answers": ["Brasilien", "Kina", "Grekland", "Japan"],
+        "correct": 0
+    },
+    {
+        "question": "Vilket organ ansvarar för att pumpa blod?",
+        "answers": ["Lever", "Hjärta", "Njure", "Lungor"],
+        "correct": 1
+    },
+    {
+        "question": "Vad är det största däggdjuret?",
+        "answers": ["Elefant", "Valhaj", "Blåval", "Giraff"],
+        "correct": 2
+    },
+    {
+        "question": "Vilket företag skapade iPhone?",
+        "answers": ["Google", "Samsung", "Apple", "Microsoft"],
+        "correct": 2
+    },
+    {
+        "question": "Vilket år slutade andra världskriget?",
+        "answers": ["1939", "1945", "1918", "1965"],
+        "correct": 1
+    },
+    {
+        "question": "Hur många ben finns det i människokroppen?",
+        "answers": ["206", "195", "210", "230"],
+        "correct": 0
+    },
+    {
+        "question": "Vilken är världens längsta flod?",
+        "answers": ["Amazonfloden", "Nilen", "Yangtze", "Mississippi"],
+        "correct": 1
+    },
+    {
+        "question": "Vad hette det första bemannade månlandningsuppdraget?",
+        "answers": ["Apollo 11", "Apollo 13", "Gemini 5", "Luna 2"],
+        "correct": 0
+    },
+    {
+        "question": "I vilket land ligger Eiffeltornet?",
+        "answers": ["Tyskland", "Frankrike", "Italien", "Spanien"],
+        "correct": 1
+    },
+    {
+        "question": "Vad är den kemiska formeln för vatten?",
+        "answers": ["O", "H2O", "CO2", "H"],
+        "correct": 1
+    },
+    {
+        "question": "Vilken berömd vetenskapsman introducerade idén om naturligt urval?",
+        "answers": ["Isaac Newton", "Galileo Galilei", "Charles Darwin", "Marie Curie"],
+        "correct": 2
+    },
+    {
+        "question": "Hur många planeter finns det i vårt solsystem?",
+        "answers": ["7", "8", "9", "10"],
+        "correct": 1
+    },
+    {
+        "question": "Vilken sport kallas för 'det vackra spelet'?",
+        "answers": ["Basket", "Fotboll (Soccer)", "Cricket", "Tennis"],
+        "correct": 1
+    },
+    {
+        "question": "Vem uppfann telefonen?",
+        "answers": ["Thomas Edison", "Alexander Graham Bell", "Nikola Tesla", "Marie Curie"],
+        "correct": 1
+    },
+    {
+        "question": "I vilket land ligger Taj Mahal?",
+        "answers": ["Indien", "Pakistan", "Afghanistan", "Bangladesh"],
+        "correct": 0
+    },
+    {
+        "question": "Vad är det hårdaste kända materialet?",
+        "answers": ["Järn", "Guld", "Grafen", "Diamant"],
+        "correct": 3
+    },
+    {
+        "question": "Vilket grundämne har atomnummer 1?",
+        "answers": ["Helium", "Syre", "Väte", "Kol"],
+        "correct": 2
+    },
+    {
+        "question": "Vad är kvadratroten av 64?",
+        "answers": ["6", "7", "8", "9"],
+        "correct": 2
+    },
+    {
+        "question": "Vilket land har världens största befolkning?",
+        "answers": ["USA", "Indien", "Kina", "Ryssland"],
+        "correct": 2
+    },
+    {
+        "question": "I vilket land ligger Stora barriärrevet?",
+        "answers": ["Australien", "USA", "Brasilien", "Indonesien"],
+        "correct": 0
+    },
+    {
+        "question": "Vilket är det största landet till ytan?",
+        "answers": ["Kina", "USA", "Ryssland", "Kanada"],
+        "correct": 2
+    },
+    {
+        "question": "Vilket djur kallas för djungelns konung?",
+        "answers": ["Elefant", "Tiger", "Lejon", "Gepard"],
+        "correct": 2
+    },
+    {
+        "question": "Vilken är den huvudsakliga gasen i jordens atmosfär?",
+        "answers": ["Syre", "Koldioxid", "Väte", "Kväve"],
+        "correct": 3
+    },
+    {
+        "question": "Vem var den första presidenten i USA?",
+        "answers": ["George Washington", "Abraham Lincoln", "John Adams", "Thomas Jefferson"],
+        "correct": 0
+    },
+    {
+        "question": "Vilket berömt fartyg sjönk på sin jungfruresa 1912?",
+        "answers": ["The Queen Mary", "The Mayflower", "Titanic", "The Britannic"],
+        "correct": 2
+    },
+    {
+        "question": "Vad är den kemiska symbolen för järn?",
+        "answers": ["Ir", "In", "Fe", "I"],
+        "correct": 2
+    }
+]
+

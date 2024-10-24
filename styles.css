@@ -1,0 +1,203 @@
+/* Grundläggande reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #000;
+    color: #fff;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(145deg, #0f2027, #203a43, #2c5364);
+}
+
+/* Spel Titel */
+.game-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 3em;
+    color: #ff66cc;
+    text-shadow: 0 0 20px #ff66cc, 0 0 30px #ff66cc, 0 0 40px #ff66cc;
+    animation: pulse 1.5s infinite;
+}
+
+/* Animering för texten */
+@keyframes pulse {
+    0% {
+        text-shadow: 0 0 10px #ff66cc, 0 0 20px #ff66cc, 0 0 40px #ff66cc;
+    }
+    100% {
+        text-shadow: 0 0 20px #ff66cc, 0 0 50px #ff66cc, 0 0 70px #ff66cc;
+    }
+}
+
+h1, h2 {
+    font-family: 'Orbitron', sans-serif;
+    color: #ff66cc;
+    margin-bottom: 20px;
+}
+
+/* Neon-knappar */
+.neon-btn {
+    background-color: transparent;
+    border: 2px solid #00ffcc;
+    border-radius: 5px;
+    color: #00ffcc;
+    padding: 15px 40px;
+    font-size: 1.2em;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: 0.3s;
+    position: relative;
+    z-index: 1;
+    margin-top: 20px;
+    box-shadow: 0 0 10px #00ffcc;
+}
+
+.neon-btn:hover {
+    background-color: #00ffcc;
+    color: #121212;
+    box-shadow: 0 0 20px #00ffcc, 0 0 40px #00ffcc, 0 0 60px #00ffcc;
+}
+
+/* Svarsknappar */
+.answer-btn {
+    background-color: transparent;
+    border: 2px solid #ff6600;
+    border-radius: 5px;
+    color: #ff6600;
+    padding: 15px 40px;
+    font-size: 1.2em;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: 0.3s;
+    position: relative;
+    z-index: 1;
+    margin-top: 20px;
+    box-shadow: 0 0 10px #ff6600;
+    display: inline-block;
+}
+
+.answer-btn:hover {
+    background-color: #ff6600;
+    color: #121212;
+    box-shadow: 0 0 20px #ff6600, 0 0 40px #ff6600, 0 0 60px #ff6600;
+}
+
+/* Korrekt svar */
+.correct {
+    border-color: #00ff00;
+    box-shadow: 0 0 20px #00ff00;
+}
+
+/* Fel svar */
+.wrong {
+    border-color: #ff0000;
+    box-shadow: 0 0 20px #ff0000;
+}
+
+/* Vald svarsknapp */
+.selected {
+    border-color: #ffff00;
+    box-shadow: 0 0 20px #ffff00;
+}
+
+/* Input-fält */
+.input-box {
+    padding: 10px;
+    font-size: 1.2em;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    background-color: #333;
+    color: #fff;
+    width: 50%;
+    margin: 20px 0;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Spelarlistelement */
+ul {
+    list-style-type: none;
+}
+
+li {
+    margin: 5px 0;
+    font-size: 1.2em;
+    text-shadow: 0 0 5px rgba(255, 102, 204, 0.7);
+}
+
+/* Neon-effekt */
+@keyframes neonGlow {
+    0% {
+        text-shadow: 0 0 20px #00ffcc, 0 0 30px #00ffcc, 0 0 40px #00ffcc;
+    }
+    100% {
+        text-shadow: 0 0 30px #00ffcc, 0 0 40px #00ffcc, 0 0 50px #00ffcc;
+    }
+}
+
+/* Timer-stil */
+#timer {
+    font-size: 2em;
+    color: #ff9933;
+    text-shadow: 0 0 10px #ff9933;
+    margin-top: 20px;
+}
+
+/* Leaderboard-styling */
+#leaderboard {
+    font-size: 1.5em;
+    margin-top: 20px;
+    color: #ff66cc;
+    text-shadow: 0 0 10px #ff66cc;
+}
+
+/* Mobilanpassning */
+@media (max-width: 768px) {
+    .game-title {
+        font-size: 2em;
+    }
+
+    .neon-btn, .answer-btn {
+        font-size: 1em;
+        padding: 10px 20px;
+    }
+
+    .input-box {
+        width: 80%;
+    }
+
+    h1, h2 {
+        font-size: 1.5em;
+    }
+
+    #quiz-screen {
+        padding: 20px;
+    }
+
+    #leaderboard {
+        font-size: 1.2em;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
