@@ -11,10 +11,17 @@ let playerScore = 0;
 let hasAnswered = false;
 const maxQuestions = 25;
 
+// Frågor lagrade direkt i koden
+const allQuestions = [
+    { question: "Vilket är världens största hav?", answers: ["ATLANTEN", "INDISKA OCEANEN", "ARKTISKA OCEANEN", "STILLA HAVET"], correct: 3 },
+    { question: "Vilken planet är närmast solen?", answers: ["JORDEN", "VENUS", "MARS", "MERCURIUS"], correct: 3 },
+    // Lägg till fler frågor här, totalt minst 50 frågor.
+];
+
 function createWebSocket() {
     if (!socket) {
         socket = new WebSocket('wss://quiz-app-e608.onrender.com');
-
+        
         socket.onopen = () => {
             console.log("WebSocket connection established");
         };
@@ -26,20 +33,20 @@ function createWebSocket() {
                 players = data.players;
                 updatePlayersList();
             } else if (data.type === 'start-game') {
-                if (data.questions) {
-                    selectRandomQuestions(data.questions);
-                    startQuiz();
-                } else {
+                if (!data.questions || data.questions.length === 0) {
                     console.error("No questions received from server");
+                    return;
                 }
+                selectedQuestions = data.questions;
+                startQuiz();
             } else if (data.type === 'timer-update') {
                 document.getElementById('timer').textContent = `Time Left: ${data.timeLeft}s`;
             } else if (data.type === 'correct-answer') {
-                if (data.correct !== undefined) {
-                    showCorrectAnswer(data.correct);
-                } else {
+                if (typeof data.correct === 'undefined') {
                     console.error("No correct answer received");
+                    return;
                 }
+                showCorrectAnswer(data.correct);
             } else if (data.type === 'leaderboard') {
                 showLeaderboard(data.players);
             } else if (data.type === 'next-question') {
@@ -160,19 +167,10 @@ function startGame() {
         return;
     }
 
-    fetch('questions.json')
-        .then(response => response.json())
-        .then(data => {
-            socket.send(JSON.stringify({ type: 'start-game', code: lobbyCode, questions: data }));
-            selectRandomQuestions(data);
-            startQuiz();
-        })
-        .catch(err => console.error("Error loading questions: ", err));
-}
-
-function selectRandomQuestions(allQuestions) {
-    const shuffled = allQuestions.sort(() => 0.5 - Math.random());
-    selectedQuestions = shuffled.slice(0, maxQuestions);
+    // Använd de lokalt lagrade frågorna
+    socket.send(JSON.stringify({ type: 'start-game', code: lobbyCode, questions: allQuestions }));
+    selectedQuestions = allQuestions;
+    startQuiz();
 }
 
 function startQuiz() {
@@ -243,7 +241,7 @@ function startTimer(seconds) {
     }, 1000);
 }
 
-function showCorrectAnswer(correctIndex) {
+function showCorrectAnswer() {
     const currentQuestion = selectedQuestions[currentQuestionIndex];
     const answerButtons = document.querySelectorAll('.answer-btn');
     answerButtons[currentQuestion.correct].classList.add('correct');
@@ -281,6 +279,8 @@ function showFinalLeaderboard() {
 function generateLobbyCode() {
     return Math.random().toString(36).substr(2, 6).toUpperCase();
 }
+
+
 
 
 
