@@ -1,6 +1,7 @@
 const WebSocket = require('ws');
-const fs = require('fs');
-const server = new WebSocket.Server({ port: 8080 });
+const port = process.env.PORT || 8080; // Render tillhandahåller PORT via environment variables
+const server = new WebSocket.Server({ port: port });
+
 let lobbies = {}; // Lagrar lobbys och spelare
 
 server.on('connection', (ws) => {
@@ -8,7 +9,7 @@ server.on('connection', (ws) => {
         const data = JSON.parse(message);
 
         if (data.type === 'create') {
-            lobbies[data.code] = {
+            lobbies[data.code] = { 
                 players: [{ username: data.username, isCreator: true, answered: false, score: 0 }],
                 sockets: [ws],
                 questions: [],
@@ -33,23 +34,14 @@ server.on('connection', (ws) => {
 
         if (data.type === 'start-game') {
             if (lobbies[data.code]) {
-                // Läser frågorna från questions.json
-                fs.readFile('questions.json', 'utf8', (err, questionsData) => {
-                    if (err) {
-                        console.error('Error reading questions file:', err);
-                        ws.send(JSON.stringify({ type: 'error', message: 'Could not load questions' }));
-                        return;
-                    }
-                    const questions = JSON.parse(questionsData);
-                    lobbies[data.code].questions = questions;
-                    sendGameStart(data.code);
-                    startTimer(data.code);
-                });
+                lobbies[data.code].questions = data.questions;
+                sendGameStart(data.code);
+                startTimer(data.code);
             }
         }
 
         if (data.type === 'player-answered') {
-            handlePlayerAnswer(data.code, data.username, data.timeLeft, data.selectedAnswer);
+            handlePlayerAnswer(data.code, data.username, data.selectedAnswer, data.timeLeft);
         }
     });
 });
@@ -69,20 +61,18 @@ function sendGameStart(lobbyCode) {
     });
 }
 
-function handlePlayerAnswer(lobbyCode, username, timeLeft, selectedAnswer) {
-    const players = lobbies[lobbyCode].players;
+function handlePlayerAnswer(lobbyCode, username, selectedAnswer, timeLeft) {
+    const player = lobbies[lobbyCode].players.find(p => p.username === username);
     const currentQuestion = lobbies[lobbyCode].questions[lobbies[lobbyCode].currentQuestionIndex];
 
-    players.forEach(player => {
-        if (player.username === username) {
-            player.answered = true;
-            if (selectedAnswer === currentQuestion.correct) {
-                player.score += timeLeft * 10; // Poäng om svaret är korrekt
-            }
-        }
-    });
+    if (selectedAnswer === currentQuestion.correct) {
+        const points = timeLeft * 10;  // Poäng baserat på hur snabbt man svarade rätt
+        player.score += points;
+    } else {
+        player.score += 0; // Inget poäng om svaret är fel
+    }
 
-    const allAnswered = players.every(player => player.answered);
+    const allAnswered = lobbies[lobbyCode].players.every(player => player.answered);
 
     if (allAnswered) {
         clearInterval(lobbies[lobbyCode].timer);
@@ -121,6 +111,7 @@ function showCorrectAnswer(lobbyCode) {
 function showLeaderboard(lobbyCode) {
     const players = lobbies[lobbyCode].players;
     players.sort((a, b) => b.score - a.score);
+
     lobbies[lobbyCode].sockets.forEach(socket => {
         socket.send(JSON.stringify({ type: 'leaderboard', players }));
     });
@@ -149,6 +140,7 @@ function endGame(lobbyCode) {
         socket.send(JSON.stringify({ type: 'game-over' }));
     });
 }
+
 
 
 

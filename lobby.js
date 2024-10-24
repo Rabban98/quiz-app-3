@@ -13,7 +13,6 @@ const maxQuestions = 25;
 
 function createWebSocket() {
     if (!socket) {
-        // Använd rätt wss-länk
         socket = new WebSocket('wss://quiz-app-e608.onrender.com');
 
         socket.onopen = () => {
@@ -36,7 +35,11 @@ function createWebSocket() {
             } else if (data.type === 'timer-update') {
                 document.getElementById('timer').textContent = `Time Left: ${data.timeLeft}s`;
             } else if (data.type === 'correct-answer') {
-                showCorrectAnswer(data.correct);
+                if (data.correct !== undefined) {
+                    showCorrectAnswer(data.correct);
+                } else {
+                    console.error("No correct answer received");
+                }
             } else if (data.type === 'leaderboard') {
                 showLeaderboard(data.players);
             } else if (data.type === 'next-question') {
@@ -160,13 +163,9 @@ function startGame() {
     fetch('questions.json')
         .then(response => response.json())
         .then(data => {
-            if (data.length > 0) {
-                socket.send(JSON.stringify({ type: 'start-game', code: lobbyCode, questions: data }));
-                selectRandomQuestions(data);
-                startQuiz();
-            } else {
-                console.error("No questions received from server");
-            }
+            socket.send(JSON.stringify({ type: 'start-game', code: lobbyCode, questions: data }));
+            selectRandomQuestions(data);
+            startQuiz();
         })
         .catch(err => console.error("Error loading questions: ", err));
 }
@@ -244,7 +243,7 @@ function startTimer(seconds) {
     }, 1000);
 }
 
-function showCorrectAnswer() {
+function showCorrectAnswer(correctIndex) {
     const currentQuestion = selectedQuestions[currentQuestionIndex];
     const answerButtons = document.querySelectorAll('.answer-btn');
     answerButtons[currentQuestion.correct].classList.add('correct');
@@ -285,13 +284,6 @@ function generateLobbyCode() {
 
 
 
-function showFinalLeaderboard() {
-    alert("Quiz finished!");
-}
-
-function generateLobbyCode() {
-    return Math.random().toString(36).substr(2, 6).toUpperCase();
-}
 
 
 
